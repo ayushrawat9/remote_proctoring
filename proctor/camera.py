@@ -7,6 +7,7 @@ class VideoCamera(object):
         self.cap.release()
     def get_frame(self):
         ret, frame = self.cap.read()
+        org_frame=frame.copy()
         frame_flip = cv2.flip(frame, 1)
         ret, frame = cv2.imencode('.jpg', frame_flip)
-        return frame.tobytes()
+        return frame.tobytes(),org_frame
