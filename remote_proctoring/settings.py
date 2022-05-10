@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'proctor',
     'user_auth',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

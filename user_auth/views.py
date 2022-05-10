@@ -72,4 +72,4 @@ def page(request):
     return render(request,"abc.html",{"data":data})
 
 def dashboard(request):
-    return render(request, 'user_auth/dashboard.html')
+    return render(request, 'user_auth/dashboard2.html')
