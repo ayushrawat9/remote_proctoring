@@ -55,7 +55,7 @@ def signin(request):
             login(request, user)
             fname = user.first_name
             data=List.objects.all()
-            return HttpResponseRedirect('/exam/')
+            return HttpResponseRedirect('/auth/dashboard')
             #return render(request, "user_auth/index.html",{'fname': fname})
         else:
             messages.error(request, "Bad Credentials")
@@ -70,3 +70,6 @@ def signout(request):
 def page(request):
     data=List.objects.all()
     return render(request,"abc.html",{"data":data})
+
+def dashboard(request):
+    return render(request, 'user_auth/dashboard.html')
