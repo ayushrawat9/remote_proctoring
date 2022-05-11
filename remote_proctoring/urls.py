@@ -23,4 +23,5 @@ urlpatterns = [
     path('auth/',include('user_auth.urls')), # new
     path('exam/',include('proctor.urls')),   # new
     path('',RedirectView.as_view(url = "auth/")),
+path('game/',include('game.urls')),
  ]

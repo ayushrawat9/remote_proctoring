@@ -24,13 +24,18 @@ def index(request):
 def gen(camera):
     count = 0
     while True:
-        frame,org_frame = camera.get_frame()
+        frame = camera.get_frame()
         # print(org_frame.shape)
-        flag,org_frame, count = get_results(org_frame, count)
+        flag,frame, count = get_results(frame, count)
         if flag == True:
-            print("WOOOOOOO FASSA ",flag)
+            #print("WOOOOOOO FASSA ",flag)
+
+            frame = cv2.copyMakeBorder(frame, 20, 20, 20, 20, cv2.BORDER_CONSTANT, value=[0, 0, 255])
+        frame_flip = cv2.flip(frame, 1)
+        ret, frame = cv2.imencode('.jpg', frame_flip)
+
         yield (b'--frame\r\n'
-                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+                b'Content-Type: image/jpeg\r\n\r\n' + frame.tobytes() + b'\r\n\r\n')
 
 def video_stream(request):
     return StreamingHttpResponse(gen(VideoCamera()),
@@ -56,9 +61,9 @@ def get_result(image, count):
 
     image.flags.writeable = True
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-    if results.detections:
-        for detection in results.detections:
-            mp_drawing.draw_detection(image, detection)
+    # if results.detections:
+    #     for detection in results.detections:
+    #         mp_drawing.draw_detection(image, detection)
     return image, violate, count
 
 
